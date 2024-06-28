@@ -3,7 +3,9 @@
  
 <head>
     <title>Car Accessories</title>
-    <link rel = "stylesheet" href = "/css/global.css" />
+    <link rel = "stylesheet" href = "../css/global.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    
 </head>
  
 <body>
@@ -25,7 +27,7 @@
  
         <button type="button" onclick="addToProductList()">Add</button>
     </form>
- 
+    <br>
     <table >
         <thead>
             <tr>
@@ -58,30 +60,26 @@
         var vatAmount = 0;
         var netAmount = 0;
         function addToProductList() {
-            var accessorySelect = document.getElementById("accessory");
-            var accessoryOption = accessorySelect.options[accessorySelect.selectedIndex];
-            var accessoryName = accessoryOption.text;
-            var accessoryPrice = accessoryOption.value;
-            var amountInput = document.getElementById("amount");
-            var amount = amountInput.value;
+            var accessorySelect = $("#accessory");
+            var accessoryOption = accessorySelect.find(":selected");
+            var accessoryName = accessoryOption.text();
+            var accessoryPrice = accessoryOption.val();
+            var amount = $("#amount").val();
  
-            var productList = document.getElementById("productList");
-            var newRow = productList.insertRow(-1);
-            var accessoryCell = newRow.insertCell(0);
-            var amountCell = newRow.insertCell(1);
-            var priceCell = newRow.insertCell(2);
- 
-            accessoryCell.innerHTML = accessoryName;
-            amountCell.innerHTML = amount;
-            priceCell.innerHTML = accessoryPrice * amount;
+            var productList = $("#productList");
+            var newRow = $("<tr></tr>");
+            newRow.append($("<td></td>").text(accessoryName));
+            newRow.append($("<td></td>").text(amount));
+            newRow.append($("<td></td>").text(accessoryPrice * amount));
+            productList.append(newRow);
 
             //update the total price
             grossPrice += accessoryPrice * amount;
-            document.getElementById("grossPrice").innerHTML = grossPrice;
+            $("#grossPrice").html(grossPrice);
             vatAmount = grossPrice * 0.07;
-            document.getElementById("vatAmount").innerHTML = vatAmount.toFixed(2);
+            $("#vatAmount").html(vatAmount.toFixed(2));
             netAmount = grossPrice + vatAmount;
-            document.getElementById("netAmount").innerHTML = netAmount.toFixed(2);
+            $("#netAmount").html(netAmount.toFixed(2));
         }
  
     </script>

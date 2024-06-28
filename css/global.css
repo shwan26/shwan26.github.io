@@ -1,8 +1,12 @@
+body {
+    background-color: beige;
+}
+
 table {
     width: 20vw;
 }
 table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: beige;
 }
 
 table tr:nth-child(odd) {
