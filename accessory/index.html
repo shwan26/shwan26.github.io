@@ -5,32 +5,58 @@
     <title>Car Accessories</title>
     <link rel = "stylesheet" href = "../css/global.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
  
 <body>
     <h1>Car Accessories</h1>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#accessoryModal">
+        Add Accessory
+    </button>
+
+    <div class="modal fade" id="accessoryModal" tabindex="-1" role="dialog" aria-labelledby="accessoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accessoryModalLabel">Add Accessory</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="accessoryForm">
+        
+                        <label for="accessory">Select an accessory:</label>
+                        <select id="accessory">
+                            <option value="100">Car Cover</option>
+                            <option value="200">Floor Mats</option>
+                            <option value="40">Seat Covers</option>
+                            <option value="50">Phone Holder</option>
+                        </select>
+                        <br>
+                 
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" min="1" value="1">
+                        <br>
+                 
+                        
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addToProductList()">Add</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
  
-    <form id="accessoryForm">
-        <label for="accessory">Select an accessory:</label>
-        <select id="accessory">
-            <option value="100">Car Cover</option>
-            <option value="200">Floor Mats</option>
-            <option value="40">Seat Covers</option>
-            <option value="50">Phone Holder</option>
-        </select>
-        <br>
- 
-        <label for="amount">Amount:</label>
-        <input type="number" id="amount" min="1" value="1">
-        <br>
- 
-        <button type="button" onclick="addToProductList()">Add</button>
-    </form>
+    
     <br>
-    <table >
+    <table class="table table-hover">
         <thead>
-            <tr>
+            <tr >
                 <th>Accessory</th>
                 <th>Amount</th>
                 <th>Price</th>
@@ -39,17 +65,18 @@
         <tbody id="productList">
             <!-- Product list items will be added here dynamically -->
         </tbody>
+        <br>
         <tfoot>
             <tr>
-                <td colspan="2">Gross Price:</td>
+                <td colspan="2" style="font-weight: bold;">Gross Price:</td>
                 <td id="grossPrice">0</td>
             </tr>
             <tr>
-                <td colspan="2">VAT Amount(7%):</td>
+                <td colspan="2" style="font-weight: bold;">VAT Amount(7%):</td>
                 <td id="vatAmount">0</td>
             </tr>
             <tr>
-                <td colspan="2">Net Amount</td>
+                <td colspan="2" style="font-weight: bold;">Net Amount</td>
                 <td id="netAmount">0</td>
             </tr>
         </tfoot>
@@ -71,10 +98,29 @@
             newRow.append($("<td></td>").text(accessoryName));
             newRow.append($("<td></td>").text(amount));
             newRow.append($("<td></td>").text(accessoryPrice * amount));
+            // Add delete button
+            var deleteButton = $('<button type="button" class="btn btn-danger btn-sm">X</button>');
+            deleteButton.on('click', function() {
+                deleteProduct(this, accessoryPrice, amount);
+            });
+            newRow.append($("<td></td>").append(deleteButton));
+
             productList.append(newRow);
 
             //update the total price
             grossPrice += accessoryPrice * amount;
+            $("#grossPrice").html(grossPrice);
+            vatAmount = grossPrice * 0.07;
+            $("#vatAmount").html(vatAmount.toFixed(2));
+            netAmount = grossPrice + vatAmount;
+            $("#netAmount").html(netAmount.toFixed(2));
+        }
+
+        function deleteProduct(button, price, amount) {
+            var row = $(button).closest("tr");
+            
+            row.remove();
+            grossPrice -= price * amount;
             $("#grossPrice").html(grossPrice);
             vatAmount = grossPrice * 0.07;
             $("#vatAmount").html(vatAmount.toFixed(2));
