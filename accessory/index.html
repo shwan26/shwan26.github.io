@@ -76,8 +76,8 @@
                 <td id="vatAmount">0</td>
             </tr>
             <tr>
-                <td colspan="2" style="font-weight: bold;">Net Amount</td>
-                <td id="netAmount">0</td>
+                <td colspan="2" style="font-weight: bold;">Total Price</td>
+                <td id="totalPrice">0</td>
             </tr>
         </tfoot>
     </table>
@@ -85,7 +85,7 @@
     <script>
         var grossPrice = 0;
         var vatAmount = 0;
-        var netAmount = 0;
+        var totalPrice = 0;
         function addToProductList() {
             var accessorySelect = $("#accessory");
             var accessoryOption = accessorySelect.find(":selected");
@@ -112,8 +112,8 @@
             $("#grossPrice").html(grossPrice);
             vatAmount = grossPrice * 0.07;
             $("#vatAmount").html(vatAmount.toFixed(2));
-            netAmount = grossPrice + vatAmount;
-            $("#netAmount").html(netAmount.toFixed(2));
+            totalPrice = grossPrice + vatAmount;
+            $("#totalPrice").html(totalPrice.toFixed(2));
         }
 
         function deleteProduct(button, price, amount) {
