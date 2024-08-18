@@ -23,7 +23,7 @@ import Index from "./routes/index";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/routing-app/",
     element: <Root />,
     // element: <div>Hello world!</div>,
     errorElement: <ErrorPage />,
