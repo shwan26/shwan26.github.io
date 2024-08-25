@@ -18,21 +18,20 @@ const Dashboard = () => {
 
   useEffect(() => {
     console.log('Fetching data from /data/cars.json');
-    fetch('/data/cars.json')
-      .then(response => {
-        console.log('Response status:', response.status);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(json => {
-        console.log('Fetched data:', json);
-        setData(json.cars || []);
-        const savedHighlightedCars = JSON.parse(localStorage.getItem('highlightedCars')) || [];
-        setHighlightedCars(savedHighlightedCars);
-      })
-      .catch(error => setError(error.message));
+    fetch(`${import.meta.env.BASE_URL}data/cars.json`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(json => {
+    setData(json.cars);
+    const savedHighlightedCars = JSON.parse(localStorage.getItem('highlightedCars')) || [];
+    setHighlightedCars(savedHighlightedCars);
+  })
+  .catch(error => console.error('Error loading data:', error));
+
   }, []);
   
 
@@ -92,13 +91,13 @@ const Dashboard = () => {
         <Col>
           <Nav variant="tabs">
             <Nav.Item>
-              <Nav.Link as={Link} to="/">Dashboard</Nav.Link>
+              <Nav.Link as={Link} to="/car-market/">Dashboard</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link as={Link} to="/highlighted-cars">Highlighted Cars</Nav.Link>
+              <Nav.Link as={Link} to="/car-market/highlighted-cars">Highlighted Cars</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link as={Link} to="/carlist">Car List</Nav.Link>
+              <Nav.Link as={Link} to="/car-market/carlist">Car List</Nav.Link>
             </Nav.Item>
           </Nav>
         </Col>

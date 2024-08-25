@@ -1,8 +1,19 @@
-# React + Vite
+# Car Market Analysis
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Students:
+Min Thuka, 
+Shwan Myat Nay Chi
 
-Currently, two official plugins are available:
+This project is done with React.js and have 3 pages.
+# Deploy Link - https://shwan26.github.io/car-market/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Dashboard Page
+![Example Image](images/Dashboard.png)
+![Example Image](images/DashboardPieChart.png)
+![Example Image](images/DashboardBarChart.png)
+
+# Highlighted Page
+![Example Image](images/HighlightedCars.png)
+
+# Car List Page
+![Example Image](images/Carlist.png)
